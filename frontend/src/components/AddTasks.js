@@ -3,8 +3,9 @@ import { useState } from 'react';
 const AddTasks = ({ onAdd }) => {
 
     const [text, setText] = useState('');
-    const [day, setDay] = useState('');
-    const [reminder, setReminder] = useState(false);
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [priority, setPriority] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -13,15 +14,13 @@ const AddTasks = ({ onAdd }) => {
             alert('Please add task')
             return
         }
+        
+        onAdd({task: text, date: date, time: time, priority: priority});
 
-        onAdd({text, day, reminder});
-
-        setText('')
-        setDay('')
-        setReminder(false)
-
-
-
+        setText('');
+        setDate('');
+        setTime('');
+        setPriority(false);
     }
 
 
@@ -35,19 +34,30 @@ const AddTasks = ({ onAdd }) => {
             </div>
 
             <div className='form-control'>
-                <label>Date & Time</label>
-                <input type='text' placeholder='Date & Time'value={day} onChange={(e) => 
-                    setDay(e.target.value)
+                <label>Date</label>
+                <input type='date' placeholder='Date'value={date} onChange={(e) => 
+                    setDate(e.target.value)
                 }></input>
             </div>
+
+
+            <div className='form-control'>
+                <label>Time</label>
+                <input type='time' placeholder='time'value={time} onChange={(e) => 
+                    setTime(e.target.value)
+                }></input>
+            </div>
+
+
             <div className='form-control form-control-check'>
-                <label>Set Reminder</label>
-                <input type='checkbox' checked={reminder} placeholder='Set Reminder' value={reminder} onChange={(e) => 
-                    setReminder(e.target.checked)
+                <label>Priority</label>
+                <input type='checkbox' checked={priority} placeholder='Set Priority' value={priority} onChange={(e) => 
+                    setPriority(e.target.checked)
                 }></input>
             </div>
+
+
             <input type='submit' value='Save Task' className='btn-green btn-block'></input>
-        
         </form>
         
     )
