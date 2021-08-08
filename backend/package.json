@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev" : "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "author": "Dilpreet Luthra",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.13.5"
   },
