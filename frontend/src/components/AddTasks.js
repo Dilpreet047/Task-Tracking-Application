@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const AddTasks = ({ onAdd }) => {
+const AddTasks = ({ onAdd, clearBit }) => {
 
     const [text, setText] = useState('');
     const [date, setDate] = useState('');
@@ -30,7 +30,7 @@ const AddTasks = ({ onAdd }) => {
                 <label>Task</label>
                 <input type='text' placeholder='Add Task' value={text} onChange={(e) => 
                     setText(e.target.value)
-                }></input>
+                } onClick={clearBit}></input>
             </div>
 
             <div className='form-control'>

@@ -2,14 +2,14 @@ import Header from './components/Header';
 import React, { useEffect, useState } from 'react';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTasks';
-
+import ShowMsg  from './components/ShowMsg';
 
 
 const App = () => {
   
   const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTask] = useState([])
-
+  const [alreadyScheduled, setAlreadySchedule] = useState(false);
 
   //fetching data from mongo db
   const fetchData = () => {
@@ -27,16 +27,38 @@ const App = () => {
 //Add Tasks
 const addTasks = (task) => {
     // POST request using fetch inside useEffect React hook
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(task)
-    };
-    fetch('/data', requestOptions)
-        .then(response => response.json())
-        .then(data => console.log('chala gaya'));
-    
+
+    let index;
+    for (index = 0; index <tasks.length; index++) {
+          if(task.date === tasks[index].date){
+            if(task.time === tasks[index].time){
+              setAlreadySchedule(true);
+              break;
+            }
+          }
+    }
+
+    if(!alreadyScheduled && index >= tasks.length){
+      const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(task)
+      };
+      fetch('/data', requestOptions)
+          .then(response => response.json())
+          .then(data => console.log('chala gaya'));
+
+          
+    }
     fetchData();
+
+
+    
+}
+
+const clearBit = () => {
+  setAlreadySchedule(false);
+  fetchData();
 }
 
 
@@ -69,7 +91,8 @@ const togglePriority = (id, current_priority) => {
   return (
     <div className='container'>
       <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
-      {showAddTask && <AddTask onAdd={addTasks}/>}
+      <ShowMsg alreadyScheduled = {alreadyScheduled}/>
+      {showAddTask && <AddTask onAdd={addTasks} clearBit={clearBit}/>}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={DeleteTask} toggle={togglePriority}/> : 'No Tasks to Show'}
       
     </div>
