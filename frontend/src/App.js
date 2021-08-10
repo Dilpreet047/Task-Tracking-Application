@@ -47,14 +47,11 @@ const addTasks = (task) => {
       fetch('/data', requestOptions)
           .then(response => response.json())
           .then(data => console.log('chala gaya'));
-
-          
+          fetchData();
     }
-    fetchData();
-
-
     
 }
+
 
 const clearBit = () => {
   setAlreadySchedule(false);

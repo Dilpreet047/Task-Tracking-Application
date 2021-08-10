@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const AddTasks = ({ onAdd, clearBit }) => {
+const AddTasks = ({ onAdd, clearBit}) => {
 
     const [text, setText] = useState('');
     const [date, setDate] = useState('');
@@ -21,6 +21,7 @@ const AddTasks = ({ onAdd, clearBit }) => {
         setDate('');
         setTime('');
         setPriority(false);
+        
     }
 
 
