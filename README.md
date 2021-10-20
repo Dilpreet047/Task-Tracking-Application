@@ -1,2 +1,2 @@
 ## Task Tracking Application
-An application that helps you plan your day.
+A MERN stack application that helps you plan your day.
